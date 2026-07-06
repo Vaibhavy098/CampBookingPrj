@@ -2,34 +2,42 @@ name: Backend Deploy
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "CampBookingSystem.slnx"
+      - ".github/workflows/backend-deploy.yml"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-dotnet@v4
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: "8.0.x"
 
       - name: Restore
         run: dotnet restore CampBookingSystem.slnx
 
       - name: Build
-        run: dotnet build CampBookingSystem.slnx -c Release --no-restore
+        run: dotnet build CampBookingSystem.slnx --configuration Release --no-restore
 
-      - name: Test
-        run: dotnet test tests/CampBooking.Tests/CampBooking.Tests.csproj -c Release --no-build
+      - name: Run Tests
+        run: dotnet test tests/CampBooking.Tests/CampBooking.Tests.csproj --configuration Release --no-build
 
-      - name: Publish
-        run: dotnet publish src/CampBooking.Api/CampBooking.Api.csproj -c Release --no-build -o publish
+      - name: Publish API
+        run: dotnet publish src/CampBooking.Api/CampBooking.Api.csproj --configuration Release --output ./publish
 
-      - name: Deploy
+      - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          app-name: campbooking-api-vaibhav
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: publish
+          package: ./publish
