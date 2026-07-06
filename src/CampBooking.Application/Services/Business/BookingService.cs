@@ -57,8 +57,13 @@ public class BookingService : IBookingService
             CampId = camp.Id,
             UserId = userId,
 
-            CheckInDate = request.CheckInDate,
-            CheckOutDate = request.CheckOutDate,
+            CheckInDate = DateTime.SpecifyKind(
+                request.CheckInDate,
+                DateTimeKind.Utc),
+
+            CheckOutDate = DateTime.SpecifyKind(
+                request.CheckOutDate,
+                DateTimeKind.Utc),
 
             BillingAddress = request.BillingAddress,
             CellPhone = request.CellPhone,
