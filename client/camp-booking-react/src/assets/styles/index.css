@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+/* ===========================
+   Global Theme
+=========================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+
+  background: #f8fafc;
+
+  color: #1e293b;
+
+  /* font-family: Inter, system-ui, sans-serif; */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
