@@ -7,6 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -14,12 +15,20 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - run: dotnet restore
-      - run: dotnet build -c Release --no-restore
-      - run: dotnet test -c Release --no-build
-      - run: dotnet publish src/CampBooking.Api/CampBooking.Api.csproj -c Release -o publish
+      - name: Restore
+        run: dotnet restore CampBookingSystem.slnx
 
-      - uses: azure/webapps-deploy@v3
+      - name: Build
+        run: dotnet build CampBookingSystem.slnx -c Release --no-restore
+
+      - name: Test
+        run: dotnet test tests/CampBooking.Tests/CampBooking.Tests.csproj -c Release --no-build
+
+      - name: Publish
+        run: dotnet publish src/CampBooking.Api/CampBooking.Api.csproj -c Release --no-build -o publish
+
+      - name: Deploy
+        uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
