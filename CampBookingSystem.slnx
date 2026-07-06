@@ -1,6 +1,6 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="src/CampBooking.API/CampBooking.Api.csproj" Id="ed8bdebb-15f3-484c-a991-07d23774615f" />
+    <Project Path="src/CampBooking.Api/CampBooking.Api.csproj" Id="ed8bdebb-15f3-484c-a991-07d23774615f" />
     <Project Path="src/CampBooking.Application/CampBooking.Application.csproj" />
     <Project Path="src/CampBooking.Domain/CampBooking.Domain.csproj" />
     <Project Path="src/CampBooking.Infrastructure/CampBooking.Infrastructure.csproj" />
