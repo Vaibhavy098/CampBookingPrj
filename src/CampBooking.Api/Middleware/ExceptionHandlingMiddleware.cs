@@ -70,7 +70,7 @@ public class ExceptionHandlingMiddleware
             default:
                 response.Status = StatusCodes.Status500InternalServerError;
                 response.Title = "Internal Server Error";
-                response.Detail = "An unexpected error occurred.";
+                response.Detail = exception.Message;
                 break;
         }
 
