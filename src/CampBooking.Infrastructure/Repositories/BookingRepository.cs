@@ -55,11 +55,19 @@ public class BookingRepository : IBookingRepository
         DateTime checkInDate,
         DateTime checkOutDate)
     {
+        var checkIn = DateTime.SpecifyKind(
+            checkInDate,
+            DateTimeKind.Utc);
+
+        var checkOut = DateTime.SpecifyKind(
+            checkOutDate,
+            DateTimeKind.Utc);
+
         return await _context.Bookings.AnyAsync(b =>
             b.CampId == campId &&
             b.Status != BookingStatus.Cancelled &&
-            b.CheckInDate < checkOutDate &&
-            b.CheckOutDate > checkInDate);
+            b.CheckInDate < checkOut &&
+            b.CheckOutDate > checkIn);
     }
     public async Task<Booking?> GetByReferenceAsync(string bookingReference)
     {
