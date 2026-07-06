@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - "client/camp-booking-react/**"
-      - ".github/workflows/azure-static-web-apps.yml"
+      - ".github/workflows/azure-static-web-apps-kind-desert-02bdcf000.yml"
 
   pull_request:
     types: [opened, synchronize, reopened, closed]
