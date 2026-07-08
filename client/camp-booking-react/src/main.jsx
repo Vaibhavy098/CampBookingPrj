@@ -36,7 +36,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         right: 24,
       }}
       toastOptions={{
-        duration: 4000,
+        duration: 2000,
 
         style: {
           minWidth: "380px",
