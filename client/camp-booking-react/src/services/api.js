@@ -1,6 +1,7 @@
 import axios from "axios";
 import { store } from "../redux/store";
 import { logout } from "../redux/slices/authSlice";
+import { Navigate } from "react-router-dom";
 // axios instance containing base url, headers, jwt, timeout, interceptors
 // axios converts js objects -> json -> http request -> backend -> http response -> json -> js object
 const api = axios.create({
@@ -33,6 +34,8 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       toast.error("Session expired. Please log in again.");
       store.dispatch(logout());
+      // Optionally, you can redirect the user to the login page after logout
+      <Navigate to="/login" replace />;
     }
     return Promise.reject(error);
   },
