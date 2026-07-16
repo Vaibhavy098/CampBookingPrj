@@ -35,7 +35,7 @@ api.interceptors.response.use(
       toast.error("Session expired. Please log in again.");
       store.dispatch(logout());
       // Optionally, you can redirect the user to the login page after logout
-      window.location.replace("/login");
+      // <Navigate to="/login" replace />;
     }
     return Promise.reject(error);
   },
